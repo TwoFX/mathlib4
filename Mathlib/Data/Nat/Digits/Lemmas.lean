@@ -327,16 +327,24 @@ theorem mapsTo_ofDigits {b : ℕ} (hb : 1 < b) (l : ℕ) :
     Set.MapsTo (ofDigits b) {L : List ℕ | l = L.length ∧ ∀ x ∈ L, x < b} {n | n < b ^ l} :=
   fun _ h ↦ Set.mem_setOf.mpr h.1 ▸ Nat.ofDigits_lt_base_pow_length hb h.2
 
+theorem length_digits_append {b : ℕ} (hb : 1 < b) (l : ℕ) (hn : n < b ^ l) :
+    (b.digits n ++ replicate (l - (b.digits n).length) 0).length = l := by
+  rw [length_append, length_replicate, Nat.add_sub_cancel']
+  rwa [digits_length_le_iff hb]
+
+theorem lt_of_mem_digits_append {b : ℕ} (hb : 1 < b) (l i : ℕ)
+    (hi : i ∈ b.digits n ++ replicate (l - (b.digits n).length) 0) : i < b := by
+  rw [mem_append, mem_replicate] at hi
+  obtain hi | ⟨_, rfl⟩  := hi
+  · exact digits_lt_base hb hi
+  · linarith
+
 theorem surjOn_ofDigits {b : ℕ} (hb : 1 < b) (l : ℕ) :
     Set.SurjOn (ofDigits b) {L : List ℕ | l = L.length ∧ ∀ x ∈ L, x < b} {n | n < b ^ l} := by
   intro n hn
   refine ⟨b.digits n ++ replicate (l - (b.digits n).length) 0, ⟨?_, fun i hi ↦ ?_⟩, ?_⟩
-  · rw [length_append, length_replicate, Nat.add_sub_cancel']
-    rwa [digits_length_le_iff hb]
-  · rw [mem_append, mem_replicate] at hi
-    obtain hi | ⟨_, rfl⟩  := hi
-    · exact digits_lt_base hb hi
-    · linarith
+  · exact (length_digits_append hb _ hn).symm
+  · exact lt_of_mem_digits_append hb _ _ hi
   · simp [ofDigits_digits]
 
 theorem injOn_ofDigits {b : ℕ} (hb : 1 < b) (l : ℕ) :
@@ -409,14 +417,10 @@ theorem eq_digits_ofDigits_append_of_mem_fixedLengthDigits {b : ℕ} (hb : 1 < b
     {L : List ℕ} (hL : L ∈ fixedLengthDigits hb l) :
     L = b.digits (ofDigits b L) ++ replicate (l - (b.digits (ofDigits b L)).length) 0 := by
   refine (Nat.bijOn_ofDigits' hb l).2.1 hL ?_ (by simp [Nat.ofDigits_digits])
+  rw [mem_fixedLengthDigits_iff hb] at hL
   refine (mem_fixedLengthDigits_iff hb).mpr ⟨?_, fun x hx ↦ ?_⟩
-  · rw [length_append, length_replicate, Nat.add_sub_cancel']
-    rw [digits_length_le_iff hb, ← Finset.mem_range]
-    exact (Nat.bijOn_ofDigits' hb l).1 hL
-  · simp only [mem_append, mem_replicate] at hx
-    obtain hi | ⟨_, rfl⟩  := hx
-    · exact digits_lt_base hb hi
-    · linarith
+  · exact (length_digits_append hb _ (hL.1 ▸ ofDigits_lt_base_pow_length hb hL.2)).symm
+  · exact lt_of_mem_digits_append hb _ _ hx
 
 /--
 The `Finset` of lists whose head is a fixed integer `d` and tail is a list
