@@ -80,13 +80,13 @@ instance {R S A M} [CommSemiring R] [CommSemiring S] [AddCommMonoid M] [CommSemi
     [Algebra R A] [Algebra S A] [Module R M] [Module S M] [Module A M]
     [IsScalarTower R A M] [IsScalarTower S A M] :
     SMulCommClass R S (TensorAlgebra A M) :=
-  inferInstanceAs <| SMulCommClass R S (RingQuot _)
+  inferInstanceAs <| SMulCommClass R S (RingQuot (TensorAlgebra.Rel A M))
 
 instance {R S A M} [CommSemiring R] [CommSemiring S] [AddCommMonoid M] [CommSemiring A]
     [SMul R S] [Algebra R A] [Algebra S A] [Module R M] [Module S M] [Module A M]
     [IsScalarTower R A M] [IsScalarTower S A M] [IsScalarTower R S A] :
     IsScalarTower R S (TensorAlgebra A M) :=
-  inferInstanceAs <| IsScalarTower R S (RingQuot _)
+  inferInstanceAs <| IsScalarTower R S (RingQuot (TensorAlgebra.Rel A M))
 
 namespace TensorAlgebra
 

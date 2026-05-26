@@ -390,7 +390,7 @@ lemma coe_le_coe {s t : NonemptyInterval α} : (s : Interval α) ≤ t ↔ s ≤
 variable [BoundedOrder α]
 
 instance boundedOrder : BoundedOrder (Interval α) :=
-  inferInstanceAs <| BoundedOrder (WithBot _)
+  inferInstanceAs <| BoundedOrder (WithBot (NonemptyInterval α))
 
 @[simp]
 theorem dual_top : dual (⊤ : Interval α) = ⊤ :=

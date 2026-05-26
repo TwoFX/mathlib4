@@ -100,13 +100,16 @@ variable [Semiring R] [Semiring S] {φ : R →+* S}
   {A B : Type*} [NonUnitalNonAssocSemiring A] [Module R A]
   [NonUnitalNonAssocSemiring B] [Module S B]
 
+-- This needs `DFunLike.coe φ = DFunLike.coe (φ : R →* S)` to hold at `instances` transparency,
+-- which seems reasonable but isn't true at the moment.
+set_option backward.isDefEq.respectTransparency.instances false in
 -- see Note [lower instance priority]
 instance (priority := 100) {F R S A B : Type*}
     {_ : Semiring R} {_ : Semiring S} {φ : R →+* S}
     {_ : NonUnitalSemiring A} {_ : NonUnitalSemiring B} [Module R A] [Module S B] [FunLike F A B]
-    [NonUnitalAlgSemiHomClass (R := R) (S := S) F φ A B] :
+    [NonUnitalAlgSemiHomClass /-(R := R) (S := S)-/ F (φ : R →* S) A B] :
     SemilinearMapClass F φ A B :=
-  { ‹NonUnitalAlgSemiHomClass F φ A B› with map_smulₛₗ := map_smulₛₗ }
+  { ‹NonUnitalAlgSemiHomClass F φ A B› with map_smulₛₗ := by exact map_smulₛₗ }
 
 instance (priority := 100) {F : Type*} [FunLike F A B] [Module R B] [NonUnitalAlgHomClass F R A B] :
     LinearMapClass F R A B :=

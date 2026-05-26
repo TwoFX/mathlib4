@@ -35,7 +35,8 @@ open scoped BigOperators
 
 namespace NNReal
 
-noncomputable instance : FloorSemiring ℝ≥0 := inferInstanceAs <| FloorSemiring (Subtype _)
+noncomputable instance : FloorSemiring ℝ≥0 :=
+  inferInstanceAs <| FloorSemiring (Subtype (fun (x : ℝ) => 0 ≤ x))
 
 @[simp, norm_cast]
 theorem coe_mulIndicator {α} (s : Set α) (f : α → ℝ≥0) (a : α) :

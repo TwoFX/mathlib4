@@ -513,7 +513,8 @@ theorem zero_le_coe {q : ℝ≥0} : 0 ≤ (q : ℝ) :=
 
 instance instIsStrictOrderedModule {M : Type*} [AddCommMonoid M] [PartialOrder M]
     [Module ℝ M] [IsStrictOrderedModule ℝ M] :
-    IsStrictOrderedModule ℝ≥0 M := inferInstanceAs <| IsStrictOrderedModule (Subtype _) M
+    IsStrictOrderedModule ℝ≥0 M :=
+  inferInstanceAs <| IsStrictOrderedModule (Subtype (fun (x : ℝ) => 0 ≤ x)) M
 
 end NNReal
 

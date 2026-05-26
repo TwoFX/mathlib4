@@ -233,6 +233,8 @@ end Prod
 protected def binaryCofan (X Y : TopCat.{u}) : BinaryCofan X Y :=
   BinaryCofan.mk (ofHom ⟨Sum.inl, by fun_prop⟩) (ofHom ⟨Sum.inr, by fun_prop⟩)
 
+-- `continuity` can't unfold the category theory language properly.
+set_option backward.isDefEq.respectTransparency.instances false in
 /-- The constructed binary coproduct cofan in `TopCat` is the coproduct. -/
 def binaryCofanIsColimit (X Y : TopCat.{u}) : IsColimit (TopCat.binaryCofan X Y) := by
   refine Limits.BinaryCofan.isColimitMk (fun s => ofHom
