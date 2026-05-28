@@ -704,7 +704,7 @@ instance NNReal.measurableSpace : MeasurableSpace ℝ≥0 :=
   inferInstanceAs <| MeasurableSpace (Subtype _)
 
 instance NNReal.borelSpace : BorelSpace ℝ≥0 :=
-  inferInstanceAs <| BorelSpace (Subtype _)
+  inferInstanceAs <| BorelSpace (Subtype (fun (x : ℝ) => 0 ≤ x))
 
 instance ENNReal.measurableSpace : MeasurableSpace ℝ≥0∞ :=
   borel ℝ≥0∞

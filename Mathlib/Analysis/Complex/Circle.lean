@@ -56,8 +56,8 @@ variable {x y : Circle}
 instance instCoeOut : CoeOut Circle ℂ := subtypeCoe
 
 instance instCommGroup : CommGroup Circle := inferInstanceAs <| CommGroup (sphere _ _)
-instance : HasDistribNeg Circle := inferInstanceAs <| HasDistribNeg (sphere _ _)
-instance : ContinuousNeg Circle := inferInstanceAs <| ContinuousNeg (sphere _ _)
+instance : HasDistribNeg Circle := inferInstanceAs <| HasDistribNeg (sphere (0 : ℂ) 1)
+instance : ContinuousNeg Circle := inferInstanceAs <| ContinuousNeg (sphere (0 : ℂ) 1)
 instance instMetricSpace : MetricSpace Circle := inferInstanceAs <| MetricSpace (sphere _ _)
 
 @[ext] lemma ext : (x : ℂ) = y → x = y := Subtype.ext
@@ -101,8 +101,8 @@ def toUnits : Circle →* Units ℂ := unitSphereToUnits ℂ
 -- written manually because `@[simps]` generated the wrong lemma
 @[simp] lemma toUnits_apply (z : Circle) : toUnits z = Units.mk0 ↑z z.coe_ne_zero := rfl
 
-instance : CompactSpace Circle := inferInstanceAs <| CompactSpace (sphere _ _)
-instance : IsTopologicalGroup Circle := inferInstanceAs <| IsTopologicalGroup (sphere _ _)
+instance : CompactSpace Circle := inferInstanceAs <| CompactSpace (sphere (0 : ℂ) 1)
+instance : IsTopologicalGroup Circle := inferInstanceAs <| IsTopologicalGroup (sphere (0 : ℂ) 1)
 instance instUniformSpace : UniformSpace Circle := inferInstanceAs <| UniformSpace (sphere _ _)
 
 /-- If `z` is a nonzero complex number, then `conj z / z` belongs to the unit circle. -/
@@ -171,28 +171,28 @@ instance instSMul [SMul ℂ α] : SMul Circle α := inferInstanceAs <| SMul (Sub
 
 instance instSMulCommClass_left [SMul ℂ β] [SMul α β] [SMulCommClass ℂ α β] :
     SMulCommClass Circle α β :=
-  inferInstanceAs <| SMulCommClass (Submonoid.unitSphere _) α β
+  inferInstanceAs <| SMulCommClass (Submonoid.unitSphere ℂ) α β
 
 instance instSMulCommClass_right [SMul ℂ β] [SMul α β] [SMulCommClass α ℂ β] :
     SMulCommClass α Circle β :=
-  inferInstanceAs <| SMulCommClass α (Submonoid.unitSphere _) β
+  inferInstanceAs <| SMulCommClass α (Submonoid.unitSphere ℂ) β
 
 instance instIsScalarTower [SMul ℂ α] [SMul ℂ β] [SMul α β] [IsScalarTower ℂ α β] :
     IsScalarTower Circle α β :=
-  inferInstanceAs <| IsScalarTower (Submonoid.unitSphere _) α β
+  inferInstanceAs <| IsScalarTower (Submonoid.unitSphere ℂ) α β
 
 instance instMulAction [MulAction ℂ α] : MulAction Circle α :=
-  inferInstanceAs <| MulAction (Submonoid.unitSphere _) α
+  inferInstanceAs <| MulAction (Submonoid.unitSphere ℂ) α
 
 instance instDistribMulAction [AddMonoid M] [DistribMulAction ℂ M] :
     DistribMulAction Circle M :=
-  inferInstanceAs <| DistribMulAction (Submonoid.unitSphere _) M
+  inferInstanceAs <| DistribMulAction (Submonoid.unitSphere ℂ) M
 
 lemma smul_def [SMul ℂ α] (z : Circle) (a : α) : z • a = (z : ℂ) • a := rfl
 
 instance instContinuousSMul [TopologicalSpace α] [MulAction ℂ α] [ContinuousSMul ℂ α] :
     ContinuousSMul Circle α :=
-  inferInstanceAs <| ContinuousSMul (Submonoid.unitSphere _) α
+  inferInstanceAs <| ContinuousSMul (Submonoid.unitSphere ℂ) α
 
 set_option backward.isDefEq.respectTransparency false in
 @[simp]

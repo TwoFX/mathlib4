@@ -43,10 +43,10 @@ instance instSemigroupWithZero : SemigroupWithZero UnitDisc :=
   inferInstanceAs <| SemigroupWithZero (ball _ _)
 
 instance instIsCancelMulZero : IsCancelMulZero UnitDisc :=
-  inferInstanceAs <| IsCancelMulZero (ball _ _)
+  inferInstanceAs <| IsCancelMulZero (ball (0 : ℂ) 1)
 
 instance instHasDistribNeg : HasDistribNeg UnitDisc :=
-  inferInstanceAs <| HasDistribNeg (ball _ _)
+  inferInstanceAs <| HasDistribNeg (ball (0 : ℂ) 1)
 
 instance instCoe : Coe UnitDisc ℂ := ⟨UnitDisc.coe⟩
 
@@ -150,16 +150,16 @@ instance : Inhabited 𝔻 :=
   ⟨0⟩
 
 instance instMulActionCircle : MulAction Circle 𝔻 :=
-  inferInstanceAs <| MulAction (sphere _ _) (ball _ _)
+  inferInstanceAs <| MulAction (sphere (0 : ℂ) 1) (ball (0 : ℂ) 1)
 
 instance instIsScalarTower_circle_circle : IsScalarTower Circle Circle 𝔻 :=
-  inferInstanceAs <| IsScalarTower (sphere _ _) (sphere _ _) (ball _ _)
+  inferInstanceAs <| IsScalarTower (sphere (0 : ℂ) 1) (sphere (0 : ℂ) 1) (ball (0 : ℂ) 1)
 
 instance instIsScalarTower_circle : IsScalarTower Circle 𝔻 𝔻 :=
-  inferInstanceAs <| IsScalarTower (sphere _ _) (ball _ _) (ball _ _)
+  inferInstanceAs <| IsScalarTower (sphere (0 : ℂ) 1) (ball (0 : ℂ) 1) (ball (0 : ℂ) 1)
 
 instance instSMulCommClass_circle_left : SMulCommClass Circle 𝔻 𝔻 :=
-  inferInstanceAs <| SMulCommClass (sphere _ _) (ball _ _) (ball _ _)
+  inferInstanceAs <| SMulCommClass (sphere (0 : ℂ) 1) (ball (0 : ℂ) 1) (ball (0 : ℂ) 1)
 
 instance instSMulCommClass_circle_right : SMulCommClass 𝔻 Circle 𝔻 :=
   SMulCommClass.symm _ _ _
@@ -176,10 +176,10 @@ instance instMulActionClosedBall : MulAction (closedBall (0 : ℂ) 1) 𝔻 :=
 
 instance instIsScalarTower_closedBall_closedBall :
     IsScalarTower (closedBall (0 : ℂ) 1) (closedBall (0 : ℂ) 1) 𝔻 :=
-  inferInstanceAs <| IsScalarTower (closedBall _ _) (closedBall _ _) (ball _ _)
+  inferInstanceAs <| IsScalarTower (closedBall (0 : ℂ) 1) (closedBall (0 : ℂ) 1) (ball (0 : ℂ) 1)
 
 instance instIsScalarTower_closedBall : IsScalarTower (closedBall (0 : ℂ) 1) 𝔻 𝔻 :=
-  inferInstanceAs <| IsScalarTower (closedBall _ _) (ball _ _) (ball _ _)
+  inferInstanceAs <| IsScalarTower (closedBall (0 : ℂ) 1) (ball (0 : ℂ) 1) (ball (0 : ℂ) 1)
 
 instance instSMulCommClass_closedBall_left : SMulCommClass (closedBall (0 : ℂ) 1) 𝔻 𝔻 :=
   ⟨fun _ _ _ => Subtype.ext <| mul_left_comm _ _ _⟩
@@ -188,7 +188,7 @@ instance instSMulCommClass_closedBall_right : SMulCommClass 𝔻 (closedBall (0 
   SMulCommClass.symm _ _ _
 
 instance instSMulCommClass_circle_closedBall : SMulCommClass Circle (closedBall (0 : ℂ) 1) 𝔻 :=
-  inferInstanceAs <| SMulCommClass (sphere _ _) (closedBall _ _) (ball _ _)
+  inferInstanceAs <| SMulCommClass (sphere (0 : ℂ) 1) (closedBall (0 : ℂ) 1) (ball (0 : ℂ) 1)
 
 instance instSMulCommClass_closedBall_circle : SMulCommClass (closedBall (0 : ℂ) 1) Circle 𝔻 :=
   SMulCommClass.symm _ _ _
